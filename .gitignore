@@ -1,0 +1,49 @@
+# Entornos virtuales
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Variables de entorno
+.env
+.env.*
+
+# Archivos compilados de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribuciones y empaquetados
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Cachés y logs
+*.log
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+pytest_cache/
+
+# Archivos del sistema y editores
+.DS_Store
+.vscode/
+.idea/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Otras configuraciones y carpetas temporales
+*.manifest
+*.spec
+pip-log.txt
+pip-delete-this-directory.txt
+
+
+# virtual envs
+nasa/

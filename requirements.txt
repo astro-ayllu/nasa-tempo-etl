@@ -1,0 +1,10 @@
+python-dotenv
+earthaccess
+netCDF4
+pandas
+h3
+xarray
+numpy
+scipy
+shapely
+dotenv 
