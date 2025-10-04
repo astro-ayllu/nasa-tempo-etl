@@ -2,6 +2,7 @@
 from flask import Flask, jsonify, request
 from dotenv import load_dotenv
 import os
+from src.controllers.data_procesor_controller import DataProcessorController
 
 load_dotenv()
 
@@ -15,12 +16,12 @@ def home():
 def status():
     return jsonify({'status': 'ok', 'service': 'nasa-tempo-etl'})
 
-@app.route('/process', methods=['POST'])
+@app.route('/process', methods=['GET'])
 def process():
-    data = request.get_json()
-    return jsonify({'message': 'Procesamiento iniciado', 'input': data}), 202
-
+    return DataProcessorController.process()
+    
+import os
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 8080))
+    port = int(os.getenv('PORT', 8080))
     app.run(debug=True, host='0.0.0.0', port=port)
