@@ -9,3 +9,4 @@ scipy
 shapely
 dotenv 
 flask
+gunicorn

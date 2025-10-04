@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  nasa-tempo-etl:
+    build: .
+    env_file:
+      - .env
+    ports:
+      - "${PORT:-8080}:8080"
+    environment:
+      - PORT=${PORT:-8080}
+    command: gunicorn --bind :8080 --workers 1 --threads 8 --timeout 0 app:app
