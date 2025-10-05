@@ -1,9 +1,9 @@
-from src.utils import alert_zones, earthdata, group_data, storage
+from src.utils import alert_zones, earthdata, group_data, storage, time_manager
 
 
 def process_data():
-    datetime = "YYYY-MM-DD hh:mm:ss"
-
+    datetime = time_manager.get_current_time()
+    
     no2_data = earthdata.fetch_no2_data()
     alert_zones_no2 = alert_zones.detect(no2_data)
     no2_grouped_info = group_data.group_data("NO2", no2_data, datetime)
