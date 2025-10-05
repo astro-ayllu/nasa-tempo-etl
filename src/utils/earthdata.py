@@ -49,14 +49,6 @@ def _get_dimension_from_tempo_product(product,dimension_name):
   dimension=product.variables[dimension_name]
   return dimension[:]
 
-def _get_lat_lon(ds):
-  geolocation=ds.groups["geolocation"]
-  latitude=geolocation.variables["latitude"]
-  lat=latitude[:]
-  longitude=geolocation.variables["longitude"]
-  lon=longitude[:]
-  return [lat,lon]
-
 def _get_dataframe_of_file(filename,value_key):
   import os
   full_path = os.path.join(PATH_FILES, filename)  
@@ -82,11 +74,11 @@ def _get_dataframe_of_files(filenames,value_key):
   df_dim=pd.DataFrame()
 
   for filename in filenames:
-      print(f'processing granulate:{filename}')
+      logger.info(f'processing granulate:{filename}')
       df=_get_dataframe_of_file(filename,value_key)
       df_dim=pd.concat([df_dim,df])
 
-  print('Dataframe generated')
+  logger.info('Dataframe generated')
   return df_dim
 
 

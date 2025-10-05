@@ -1,5 +1,5 @@
 
-from src.utils import earthdata, alert_zones
+from src.utils import earthdata, alert_zones, storage
 
 def process_data():
     no2_data = earthdata.fetch_no2_data()
@@ -13,4 +13,11 @@ def process_data():
       'alert_zones_no2': len(alert_zones_no2),
       'alert_zones_hcho': len(alert_zones_hcho)
     }
+    storage.save_files([{
+        'filename': f"no2_alert_zones.json",
+        'content': alert_zones_no2
+    }, {
+        'filename': f"hcho_alert_zones.json",
+        'content': alert_zones_hcho
+    }])
     return data

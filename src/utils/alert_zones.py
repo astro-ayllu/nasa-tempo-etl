@@ -65,7 +65,7 @@ def detect(
 
         centroid = {"lat": float(np.mean(lats)), "lon": float(np.mean(lons))}
         boundary = build_boundary(list(zip(lats, lons)))
-        cluster_df = pd.DataFrame({"lat": lats, "lon": lons, "value": vals})
+        #cluster_df = pd.DataFrame({"lat": lats, "lon": lons, "value": vals})
 
         alert_zones.append({
             "centroid": centroid,
@@ -73,7 +73,7 @@ def detect(
             "min_value": float(np.min(vals)),
             "max_value": float(np.max(vals)),
             "mean_value": float(np.mean(vals)),
-            "data": cluster_df.to_json()
+            #"data": cluster_df.to_json()
         })
 
     return alert_zones

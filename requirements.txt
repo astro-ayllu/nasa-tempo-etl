@@ -11,3 +11,4 @@ dotenv
 flask
 gunicorn
 scikit-learn
+boto3
