@@ -5,7 +5,7 @@ from src.utils import (
     storage,
     time_manager,
     db,
-    mongo,
+    fire_data
 )
 import requests
 import datetime as dt
@@ -40,12 +40,25 @@ def process_data():
 
 
 def save_fire_data():
-    url = "https://firms.modaps.eosdis.nasa.gov/data/active_fire/landsat/csv/LANDSAT_USA_contiguous_and_Hawaii_24h.csv"
-    response = requests.get(url)
-    response.raise_for_status()
-
-    storage.save_single_file(
-        "LANDSAT_USA_contiguous_and_Hawaii_24h.csv", response.content
+    fire_data.save_fire_data(
+        "https://firms.modaps.eosdis.nasa.gov/data/active_fire/modis-c6.1/csv/MODIS_C6_1_USA_contiguous_and_Hawaii_24h.csv",
+        "MODIS_C6_1_USA_contiguous_and_Hawaii_24h.csv",
+    )
+    fire_data.save_fire_data(
+        "https://firms.modaps.eosdis.nasa.gov/data/active_fire/suomi-npp-viirs-c2/csv/SUOMI_VIIRS_C2_USA_contiguous_and_Hawaii_24h.csv",
+        "SUOMI_VIIRS_C2_USA_contiguous_and_Hawaii_24h.csv",
+    )
+    fire_data.save_fire_data(
+        "https://firms.modaps.eosdis.nasa.gov/data/active_fire/noaa-20-viirs-c2/csv/J1_VIIRS_C2_USA_contiguous_and_Hawaii_24h.csv",
+        "J1_VIIRS_C2_USA_contiguous_and_Hawaii_24h.csv",
+    )
+    fire_data.save_fire_data(
+        "https://firms.modaps.eosdis.nasa.gov/data/active_fire/noaa-21-viirs-c2/csv/J2_VIIRS_C2_USA_contiguous_and_Hawaii_24h.csv",
+        "J2_VIIRS_C2_USA_contiguous_and_Hawaii_24h.csv",
+    )
+    fire_data.save_fire_data(
+        "https://firms.modaps.eosdis.nasa.gov/data/active_fire/landsat/csv/LANDSAT_USA_contiguous_and_Hawaii_24h.csv",
+        "LANDSAT_USA_contiguous_and_Hawaii_24h.csv",
     )
 
 
