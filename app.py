@@ -19,6 +19,11 @@ def status():
 @app.route('/process', methods=['GET'])
 def process():
     return DataProcessorController.process()
+
+@app.route('/historical/<string:date>', methods=['GET'])
+def historical(date):
+    return DataProcessorController.historical(date)
+
     
 import os
 

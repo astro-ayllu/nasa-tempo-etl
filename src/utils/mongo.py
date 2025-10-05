@@ -6,7 +6,7 @@ from src.utils.logger import logger
 MONGO_URI = config.MONGO_URI
 
 
-def save_processing(time: str):
+def save_processing(time: str, process_key: str = ""):
     client = MongoClient(MONGO_URI, server_api=ServerApi("1"))
 
     try:
@@ -18,6 +18,7 @@ def save_processing(time: str):
 
         record = {
             "time": time,
+            "process_key": process_key
         }
 
         result = collection.insert_one(record)

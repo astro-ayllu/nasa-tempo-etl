@@ -27,6 +27,14 @@ def _get_last_granulate(short_name,count=9):
   results=earthaccess.search_data(short_name=short_name,temporal=(start_time,end_time))
   return results[-count:]
 
+def _get_granulates_by_date(short_name,date):
+  earthaccess.login()
+  start_time = f"{date} 00:00:00"
+  end_time = f"{date} 23:59:59"
+  logger.info(f"Searching data from {start_time} to {end_time}")
+  results=earthaccess.search_data(short_name=short_name,temporal=(start_time,end_time))
+  return results
+
 def _download_files(granulates):
   earthaccess.download(granulates, local_path=PATH_FILES)
 
@@ -137,3 +145,39 @@ def fetch_hcho_data():
   logger.info("Cleaning dataframe...")
   df_hcho=clean_df(df_hcho)
   return df_hcho
+
+def _get_warning_points_of_granulate(filename,dimension_name,umbral=5e15):
+  df=_get_dataframe_of_file(filename,dimension_name)
+  df=clean_df(df)
+  df_warnings=df.loc[df["value"]>umbral,["lat","lon","value"]].copy()
+  return df_warnings
+
+def fetch_no2_historical_data_warnings(date):
+  logger.info(f"Fetching historical data for: {date}")
+  granulates = _get_granulates_by_date(NO2_SHORT_NAME, date)
+  logger.info(f"Found {len(granulates)} granulates.")
+  logger.info("Downloading files...")
+  _download_files(granulates)
+  filenames = _get_filenames_of_granulates(granulates)
+  df=pd.DataFrame()
+  for filename in filenames:
+      logger.info(f'Processing granulate: {filename}')
+      df_warnings = _get_warning_points_of_granulate(filename,dimension_name="vertical_column_troposphere")
+      df=pd.concat([df,df_warnings])
+  return df
+
+def fetch_hcho_historical_data_warnings(date):
+  logger.info(f"Fetching historical data for: {date}")
+  granulates = _get_granulates_by_date(HCHO_SHORT_NAME, date)
+  logger.info(f"Found {len(granulates)} granulates.")
+  logger.info("Downloading files...")
+  _download_files(granulates)
+  filenames = _get_filenames_of_granulates(granulates)
+  df=pd.DataFrame()
+  for filename in filenames:
+      logger.info(f'Processing granulate: {filename}')
+      df_warnings = _get_warning_points_of_granulate(filename,dimension_name="vertical_column", umbral=4e16)
+      df=pd.concat([df,df_warnings])
+  return df
+
+

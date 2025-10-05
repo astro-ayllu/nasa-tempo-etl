@@ -49,3 +49,30 @@ def group_data(param: str, df: pd.DataFrame, datetime):
     info_2_6 = group_data_by_resolution(param, df, 2, 6, datetime)
 
     return info_0_4 + info_1_5 + info_2_6
+
+
+def group_historical_points(param: str, df: pd.DataFrame, resolution: int, date: str):
+    logger.info(f"Grouping historical data for {param} [{date}]: {len(df)} items")
+
+    grouped_data = []
+
+    if len(df) == 0:
+        return grouped_data
+
+    df["h3_res"] = df.apply(
+        lambda row: h3.latlng_to_cell(row["lat"], row["lon"], resolution), axis=1
+    )
+
+    grouped = df.groupby("h3_res")
+    for h3_res, group in grouped:
+        content = group.apply(lambda row: [row["lat"], row["lon"], row["value"]], axis=1).tolist()
+        filename = f"{param}_HISTORICAL_{date}_{resolution}_{h3_res}.json"
+        grouped_data.append({"filename": filename, "content": content})
+    return grouped_data
+
+def group_historical_data(df:pd.DataFrame,param: str,date:str):
+    historical_0=group_historical_points(param, df, 0, date)
+    historical_1=group_historical_points(param, df, 1, date)
+    historical_2=group_historical_points(param, df, 2, date)
+
+    return historical_0 + historical_1 + historical_2
