@@ -1,5 +1,4 @@
 import time
-
 import h3
 import pandas as pd
 from src.utils.logger import logger
@@ -34,7 +33,7 @@ def group_data_by_resolution(
         filename = f"{param}_{datetime}_{resolutionA}_{groupA}.json"
 
         end = time.time()
-        print(f"Data processed on {end - start} seconds")
+        logger.info(f"Data processed on {end - start} seconds")
 
         return {"filename": filename, "content": output_list}
 

@@ -6,12 +6,12 @@ def process_data():
 
     no2_data = earthdata.fetch_no2_data()
     alert_zones_no2 = alert_zones.detect(no2_data)
-    no2_grouped_info = group_data("NO2", no2_data, datetime)
+    no2_grouped_info = group_data.group_data("NO2", no2_data, datetime)
     storage.save_files(no2_grouped_info)
 
     hcho_data = earthdata.fetch_hcho_data()
     alert_zones_hcho = alert_zones.detect(hcho_data, umbral=4e16)
-    hcho_grouped_info = group_data("HCHO", hcho_data, datetime)
+    hcho_grouped_info = group_data.group_data("HCHO", hcho_data, datetime)
     storage.save_files(hcho_grouped_info)
 
     data = {
