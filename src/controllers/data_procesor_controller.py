@@ -22,6 +22,6 @@ class DataProcessorController(MethodView):
         return build_response([])
 
     @staticmethod
-    def historical(date):
-        data = data_processor_service.historical_data(date)
+    def historical():
+        data = data_processor_service.historical_data()
         return build_response(data)

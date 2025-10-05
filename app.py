@@ -20,9 +20,9 @@ def status():
 def process():
     return DataProcessorController.process()
 
-@app.route('/historical/<string:date>', methods=['GET'])
-def historical(date):
-    return DataProcessorController.historical(date)
+@app.route('/historical', methods=['GET'])
+def historical():
+    return DataProcessorController.historical()
 
 
 @app.route('/save-fire-data', methods=['GET'])

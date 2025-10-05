@@ -49,7 +49,8 @@ def save_fire_data():
     )
 
 
-def historical_data(date):
+def historical_data():
+    date = (dt.datetime.utcnow() - dt.timedelta(days=1)).strftime("%Y-%m-%d")
     
     no2_data = earthdata.fetch_no2_historical_data_warnings(date)
     historical_no2 = group_data.group_historical_data(no2_data, "NO2", date)
