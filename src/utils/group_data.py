@@ -76,3 +76,29 @@ def group_historical_data(df:pd.DataFrame,param: str,date:str):
     historical_2=group_historical_points(param, df, 2, date)
 
     return historical_0 + historical_1 + historical_2
+
+def group_alert_zones(param: str, alert_zones: list, resolution: int,date: str):
+    logger.info(f"Grouping alert zones by resolution {resolution}: {len(alert_zones)} items")
+    groups = {}
+    if len(alert_zones) == 0:
+        return []   
+
+    for i, zone in enumerate(alert_zones):
+        lat = zone["centroid"]["lat"]
+        lon = zone["centroid"]["lon"]
+        h3_res = h3.latlng_to_cell(lat, lon, resolution)
+        groups[h3_res]=groups[h3_res]+[zone]
+
+    grouped_data = []
+    for h3_res, zones in groups.items():
+        filename = f"{param}_ALERT_ZONES_{date}_{resolution}_{h3_res}.json"
+        grouped_data.append({"filename": filename, "content": zones})   
+
+    return grouped_data
+
+def group_all_alert_zones(param: str, alert_zones: list,date: str):
+    alert_zones_0=group_alert_zones(param, alert_zones, 0, date)
+    alert_zones_1=group_alert_zones(param, alert_zones, 1, date)
+    alert_zones_2=group_alert_zones(param, alert_zones, 2, date)
+
+    return alert_zones_0 + alert_zones_1 + alert_zones_2

@@ -9,13 +9,17 @@ def process_data():
 
     no2_data = earthdata.fetch_no2_data()
     alert_zones_no2 = alert_zones.detect(no2_data)
+    grouped_alert_zones_no2 = group_data.group_all_alert_zones("NO2", alert_zones_no2, datetime)
     no2_grouped_info = group_data.group_data("NO2", no2_data, datetime)
     storage.save_files(no2_grouped_info)
+    storage.save_files(grouped_alert_zones_no2)
 
     hcho_data = earthdata.fetch_hcho_data()
     alert_zones_hcho = alert_zones.detect(hcho_data, umbral=4e16)
+    grouped_alert_zones_hcho = group_data.group_all_alert_zones("HCHO", alert_zones_hcho, datetime)
     hcho_grouped_info = group_data.group_data("HCHO", hcho_data, datetime)
     storage.save_files(hcho_grouped_info)
+    storage.save_files(grouped_alert_zones_hcho)
 
     db.save_processing(datetime)
 

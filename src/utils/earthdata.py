@@ -151,6 +151,7 @@ def _get_warning_points_of_granulate(filename,dimension_name,umbral=5e15):
   df=clean_df(df)
   df_warnings=df.loc[df["value"]>umbral,["lat","lon","value"]].copy()
   return df_warnings
+  
 
 def fetch_no2_historical_data_warnings(date):
   logger.info(f"Fetching historical data for: {date}")
