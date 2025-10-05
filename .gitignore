@@ -8,7 +8,7 @@ venv.bak/
 
 # Variables de entorno
 .env
-.env.*
+
 
 # Archivos compilados de Python
 __pycache__/
