@@ -87,7 +87,9 @@ def group_alert_zones(param: str, alert_zones: list, resolution: int,date: str):
         lat = zone["centroid"]["lat"]
         lon = zone["centroid"]["lon"]
         h3_res = h3.latlng_to_cell(lat, lon, resolution)
-        groups[h3_res]=groups[h3_res]+[zone]
+        if(h3_res not in groups):
+            groups[h3_res] = []
+        groups[h3_res].append(zone)
 
     grouped_data = []
     for h3_res, zones in groups.items():
