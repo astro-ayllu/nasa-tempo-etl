@@ -5,3 +5,5 @@ AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 AWS_REGION = os.getenv('AWS_REGION', 'us-east-1')
 
 AWS_BUCKET_NAME = os.getenv('AWS_BUCKET_NAME', 'nasa-tempo')
+
+MONGO_URI = os.getenv('MONGO_URI')
