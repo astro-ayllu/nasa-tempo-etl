@@ -2,9 +2,9 @@
 from flask import Flask, jsonify, request
 from dotenv import load_dotenv
 import os
+load_dotenv()
 from src.controllers.data_procesor_controller import DataProcessorController
 
-load_dotenv()
 
 app = Flask(__name__)
 

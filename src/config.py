@@ -7,3 +7,6 @@ AWS_REGION = os.getenv('AWS_REGION', 'us-east-1')
 AWS_BUCKET_NAME = os.getenv('AWS_BUCKET_NAME', 'nasa-tempo')
 
 MONGO_URI = os.getenv('MONGO_URI')
+
+SUPABASE_URL = os.getenv('SUPABASE_URL')
+SUPABASE_KEY = os.getenv('SUPABASE_KEY')

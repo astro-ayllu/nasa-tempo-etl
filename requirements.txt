@@ -13,3 +13,4 @@ gunicorn
 scikit-learn
 boto3
 pymongo[srv]==3.12
+supabase

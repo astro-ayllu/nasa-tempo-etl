@@ -1,5 +1,5 @@
 
-from src.utils import alert_zones, earthdata, group_data, storage, time_manager, mongo
+from src.utils import alert_zones, earthdata, group_data, storage, time_manager, db
 import datetime as dt
 
 
@@ -17,7 +17,7 @@ def process_data():
     hcho_grouped_info = group_data.group_data("HCHO", hcho_data, datetime)
     storage.save_files(hcho_grouped_info)
 
-    mongo.save_processing(datetime)
+    db.save_processing(datetime)
 
     data = {
         "no2": len(no2_data),
@@ -28,6 +28,7 @@ def process_data():
     return data
 
 def historical_data(date):
+    
     no2_data = earthdata.fetch_no2_historical_data_warnings(date)
     historical_no2 = group_data.group_historical_data(no2_data, "NO2", date)
     storage.save_files(historical_no2)
@@ -35,8 +36,8 @@ def historical_data(date):
     hcho_data = earthdata.fetch_hcho_historical_data_warnings(date)
     historical_hcho = group_data.group_historical_data(hcho_data, "HCHO", date)
     storage.save_files(historical_hcho)
-    
-    mongo.save_processing(date, process_key="historical_day_warning_points")
+
+    db.save_processing(date, process_key="historical_day_warning_points")
 
     return {
         "no2": len(no2_data),
