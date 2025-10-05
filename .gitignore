@@ -48,4 +48,4 @@ pip-delete-this-directory.txt
 # virtual envs
 nasa/
 
-data_files/
+data_files/*.nc
