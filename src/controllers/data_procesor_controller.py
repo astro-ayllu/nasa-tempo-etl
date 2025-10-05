@@ -17,6 +17,11 @@ class DataProcessorController(MethodView):
         return build_response(data)
     
     @staticmethod
+    def save_fire_data():
+        data_processor_service.save_fire_data()
+        return build_response([])
+
+    @staticmethod
     def historical(date):
         data = data_processor_service.historical_data(date)
         return build_response(data)

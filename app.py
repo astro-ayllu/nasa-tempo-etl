@@ -24,7 +24,11 @@ def process():
 def historical(date):
     return DataProcessorController.historical(date)
 
-    
+
+@app.route('/save-fire-data', methods=['GET'])
+def save_fire_data():
+    return DataProcessorController.save_fire_data()
+
 import os
 
 if __name__ == '__main__':

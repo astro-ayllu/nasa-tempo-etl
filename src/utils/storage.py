@@ -41,3 +41,21 @@ def save_files(files, bucket_name=AWS_BUCKET_NAME):
             logger.info(f"Archivo {filename} subido exitosamente a {bucket_name}/{object_key}")
         else:
             logger.error(f"Error subiendo el archivo {filename} a {bucket_name}/{object_key}")
+
+def save_single_file(key, content, bucket_name=AWS_BUCKET_NAME):
+    s3 = boto3.client(
+        's3',
+        aws_access_key_id=AWS_ACCESS_KEY_ID,
+        aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+        region_name=AWS_REGION
+    )
+
+    s3.put_object(
+        Bucket=bucket_name,
+        Key=key,
+        Body=content,
+        ContentType='text/csv',
+        ACL='public-read'
+    )
+
+    logger.info(f'Archivo guardado en s3://{bucket_name}/{key}')
